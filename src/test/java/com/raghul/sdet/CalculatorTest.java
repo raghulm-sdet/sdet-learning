@@ -1,7 +1,7 @@
 package com.raghul.sdet;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest 
 {
@@ -29,5 +29,11 @@ public class CalculatorTest
 	void DivTwoNumbers()
 	{
 		assertEquals(4, calc.div(12, 3));
+	}
+	
+	@Test
+	void divideByZeroThrowsException()
+	{
+		assertThrows(ArithmeticException.class, () -> calc.div(6, 0));
 	}
 }

@@ -17,8 +17,12 @@ public class Calculator
 		return a*b;
 	}
 	
-	public int div(int a, int b)
+	public double div(double a, double b)
 	{
-		return a/b;
+		if (b == 0)
+		{
+			throw new ArithmeticException("Cannot divide by zero");
+		}
+		return a / b;
 	}
 }
