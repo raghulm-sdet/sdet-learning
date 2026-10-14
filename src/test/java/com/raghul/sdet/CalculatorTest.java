@@ -2,10 +2,25 @@ package com.raghul.sdet;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class CalculatorTest 
 {
-	Calculator calc = new Calculator();
+	Calculator calc;
+	
+	@BeforeEach
+	void setUp()
+	{
+		System.out.println("Setup : Calculator started working");
+		calc = new Calculator();
+	}
+	
+	@AfterEach
+	void tearDown()
+	{
+		System.out.println("Completed : Calculation finished");
+	}
 	
 	@Test
 	void AddTwoNumbers()

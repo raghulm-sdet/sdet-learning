@@ -2,10 +2,25 @@ package com.raghul.sdet;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class BankAccountTest 
 {
-	BankAccount acc = new BankAccount();
+	BankAccount acc;
+	
+	@BeforeEach
+	void setUp()
+	{
+		System.out.println("Setup : Creating a fresh account!");
+		acc = new BankAccount();
+	}
+	
+	@AfterEach
+	void tearDown()
+	{
+		System.out.println("Cleanup : Test Finished!");
+	}
 	
 	@Test
 	void testNotNull()
@@ -16,14 +31,14 @@ public class BankAccountTest
 	@Test
 	void testNewAccCheckEmpty()
 	{
-		assertFalse(acc.getBalance() > 0);
+		assertEquals(0.0, acc.getBalance(), 0.001);
 	}
 	
 	@Test
 	void testDeposit()
 	{
 		acc.deposit(1000);
-		assertTrue(acc.getBalance() > 0);
+		assertEquals(1000.0, acc.getBalance(), 0.001);
 	}
 	
 	@Test
