@@ -67,4 +67,31 @@ public class BankAccountTest
 		
 		assertEquals(700.0, acc.getBalance(), 0.001, "Balance should be 700 after withdrawing 300");
 	}
+	
+	@Test
+	void testWithdrawExactAmout()
+	{
+		acc.deposit(500);
+		acc.withdraw(500);
+		
+		assertEquals(0.0, acc.getBalance(), 0.001);
+	}
+	
+	@Test
+	void testDepositNegativeNotAllowed()
+	{
+		assertThrows(IllegalArgumentException.class, () -> acc.deposit(-500));
+	}
+	
+	@Test
+	void testDepositZeroNotAllowed()
+	{
+		assertThrows(IllegalArgumentException.class, () -> acc.deposit(0));
+	}
+	
+	@Test
+	void testWithdrawNegativeNotAllowed()
+	{
+		assertThrows(IllegalArgumentException.class, () -> acc.withdraw(-100));
+	}
 }

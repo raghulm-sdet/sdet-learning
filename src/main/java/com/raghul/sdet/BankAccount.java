@@ -6,11 +6,19 @@ public class BankAccount implements Payable
 
 	public void deposit(double amount)
 	{
+		if(amount <= 0)
+		{
+			throw new IllegalArgumentException("Deposit Amount must be Positive!");
+		}
 		balance = balance + amount;
 	}
 
 	public void withdraw(double amount)
 	{
+		if(amount <= 0)
+		{
+			throw new IllegalArgumentException("Withdraw Amount must be Positive!");
+		}
 		if(amount > balance)
 		{
 			System.out.println("Not enough money");
