@@ -10,8 +10,8 @@ public class BankAccount implements Payable
 		{
 			throw new IllegalArgumentException("Deposit Amount must be Positive!");
 		}
-		balance = balance + amount;
-	}
+		balance = balance + amount; 
+	} 
 
 	public void withdraw(double amount)
 	{

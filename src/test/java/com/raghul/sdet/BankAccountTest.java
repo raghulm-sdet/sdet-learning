@@ -1,12 +1,10 @@
 package com.raghul.sdet;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Disabled;
 
 public class BankAccountTest 
 {
@@ -83,7 +81,9 @@ public class BankAccountTest
 	@Test
 	void testDepositNegativeNotAllowed()
 	{
-		assertThrows(IllegalArgumentException.class, () -> acc.deposit(-500));
+		IllegalArgumentException ex = assertThrows(
+				IllegalArgumentException.class, () -> acc.deposit(-500));
+		assertEquals("Deposit Amount must be Positive!", ex.getMessage());
 	}
 	
 	@Test
@@ -96,7 +96,9 @@ public class BankAccountTest
 	@Test
 	void testWithdrawNegativeNotAllowed()
 	{
-		assertThrows(IllegalArgumentException.class, () -> acc.withdraw(-100));
+		IllegalArgumentException ex = assertThrows(
+				IllegalArgumentException.class, () -> acc.withdraw(-100));
+		assertEquals("Withdraw Amount must be Positive!", ex.getMessage());
 	}
 	
 	@Test
