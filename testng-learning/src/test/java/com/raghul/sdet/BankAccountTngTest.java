@@ -1,6 +1,7 @@
 package com.raghul.sdet;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -88,5 +89,42 @@ public class BankAccountTngTest
 		IllegalArgumentException ex = Assert.expectThrows(
 				IllegalArgumentException.class, () -> bc.deposit(0));
 		Assert.assertEquals(ex.getMessage(), "Deposit Amount must be Positive!");
+	}
+	
+	@DataProvider(name = "addAmount")
+	public Object[][] addAmount()
+	{
+		return new Object[][]
+		{
+			{1000.0, 300.0, 700.0},
+			{100.0, 500.0, 100.0},
+			{500.0, 500.0, 0.0},
+			{250.50, 50.25, 200.25}
+		};
+	}
+	
+	@Test(dataProvider = "addAmount")
+	public void testProvider(double start, double withdraw, double expectedBalance)
+	{
+		bc.deposit(start);
+		bc.withdraw(withdraw);
+		Assert.assertEquals(bc.getBalance(), expectedBalance, 0.001);
+	}
+	
+	@DataProvider(name = "badAmounts")
+	public Object[][] badAmounts()
+	{
+		return new Object[][] 
+		{ 
+			{-500.0}, 
+			{-0.01}, 
+			{0.0} 
+		};
+	}
+
+	@Test(dataProvider = "badAmounts")
+	public void testDepositBadAmountIsRejected(double amount)
+	{
+		Assert.assertThrows(IllegalArgumentException.class, () -> bc.deposit(amount));
 	}
 }
