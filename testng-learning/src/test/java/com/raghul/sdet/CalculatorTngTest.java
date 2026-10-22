@@ -10,20 +10,20 @@ public class CalculatorTngTest
 {
 	Calculator calc;
 	
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	public void setUp()
 	{
 		System.out.println("Setup : new Calculator");
 		calc = new Calculator();
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void tearDown()
 	{
 		System.out.println("Cleanup : done");
 	}
 	
-	@Test(description = "addsTwoNumbers")
+	@Test(description = "Add Two Numbers",groups = {"smoke"})
 	public void testAdd()
 	{
 		Reporter.log("Add Two Numbers: checking 3 + 7 = 10");
@@ -31,25 +31,25 @@ public class CalculatorTngTest
 		
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testSub()
 	{
 		Assert.assertEquals(calc.sub(550, 500), 50);
 	}
 	
-	@Test
+	@Test(groups = {"smoke","regression"})
 	public void testMul()
 	{
 		Assert.assertEquals(calc.mul(10, 10), 100);
 	}
 	
-	@Test
+	@Test(groups = {"smoke"})
 	public void testDiv()
 	{
 		Assert.assertEquals(calc.div(20, 5), 4);
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testNotDivisibleByZero()
 	{
 		Assert.assertThrows(ArithmeticException.class, ()->calc.div(7, 0) );

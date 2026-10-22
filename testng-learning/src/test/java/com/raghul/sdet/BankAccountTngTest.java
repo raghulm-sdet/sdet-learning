@@ -10,33 +10,33 @@ public class BankAccountTngTest
 {
 	BankAccount bc;
 	
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	public void setUp()
 	{
 		System.out.println("Setup : New BankAccount");
 		bc = new BankAccount();
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void tearDown()
 	{
 		System.out.println("Cleanup : done");
 	}
 	
-	@Test
+	@Test(groups = {"smoke"})
 	public void testNewAccountBalance()
 	{
 		Assert.assertEquals(bc.getBalance(), 0.0, 0.001);
 	}
 	
-	@Test
+	@Test(groups = {"smoke"})
 	public void testDeposit()
 	{
 		bc.deposit(2500);
 		Assert.assertEquals(bc.getBalance(), 2500, 0.001);
 	}
 	
-	@Test
+	@Test(groups = {"smoke"})
 	public void testWithdraw()
 	{
 		bc.deposit(1000);
@@ -44,7 +44,7 @@ public class BankAccountTngTest
 		Assert.assertEquals(bc.getBalance(), 750, 0.001);
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testWithdrawMoreThanBalance()
 	{
 		bc.deposit(1000);
@@ -52,7 +52,7 @@ public class BankAccountTngTest
 		Assert.assertEquals(bc.getBalance(), 1000, 0.001);
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testDepositNegativeIsRefused()
 	{
 		IllegalArgumentException ex = Assert.expectThrows(
@@ -60,7 +60,7 @@ public class BankAccountTngTest
 		Assert.assertEquals(ex.getMessage(), "Deposit Amount must be Positive!");
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testWithdrawNegativeIsRefused()
 	{
 		bc.deposit(1000);
@@ -69,7 +69,7 @@ public class BankAccountTngTest
 		Assert.assertEquals(ex.getMessage(), "Withdraw Amount must be Positive!");
 	}
 	
-	@Test
+	@Test(groups = {"smoke","regression"})
 	public void testPayFromBalance()
 	{
 		bc.deposit(1000);
@@ -77,13 +77,13 @@ public class BankAccountTngTest
 		Assert.assertEquals(bc.getBalance(), 779.50, 0.001);
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testPayNegativeIsRefused()
 	{
 		Assert.assertThrows(IllegalArgumentException.class, () -> bc.pay(-100));
 	}
 	
-	@Test
+	@Test(groups = {"regression"})
 	public void testDepositZeroIsRefused()
 	{
 		IllegalArgumentException ex = Assert.expectThrows(
