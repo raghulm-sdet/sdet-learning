@@ -78,4 +78,15 @@ public class DataQualityTest
 
 		assertEquals(0, missing, "Customers with no email");
 	}
+	
+	@Test
+	void noDuplicateApiCustomers() throws Exception
+	{
+		int duplicates = countRows(
+			"SELECT COUNT(*) FROM ("
+			+ "SELECT name, email FROM api_customers "
+			+ "GROUP BY name, email HAVING COUNT(*) > 1) d");
+
+		assertEquals(0, duplicates, "Duplicate customers created through the API");
+	}
 }
